@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+<body>
+
+<div id="app">
+    <!-- vue will manage all the HTML here. -->
+
+
+    <h1>Hello Vue! </h1>
+
+   <p>{{ messageWithExclamationPoints }} </p> <!--- this is Vue specific coding and wil need to match what is in the function below-->
+
+   <button v-on:click="addExclamationPoints">Add Exclamation Points</button> <!-- v-on click is adding an event listener-->
+   <button v-on:click="clearExclamationPoints">Clear</button> 
+</div>                                                              <!-- for addExclamationPoints-->
+
+<script>
+
+
+
+// set up vue app
+
+    const { createApp, ref, computed } = Vue
+
+    createApp({
+        setup() {
+            // define things the Vue app needs here.
+
+            const message = ref('Hi')
+            const numberOfExclamationPoints = ref(0)
+
+            function addExclamationPoints() {
+                if (numberOfExclamationPoints.value < 10) {
+                
+                // message.value = message.value + '!'
+                numberOfExclamationPoints.value ++ // this will get to 10 explanation points and will stop
+                } else {
+                    alert('No more exclamation point!')
+                }
+            } // this will add a "!" everytime clicking the button
+
+            function clearExclamationPoints() {
+                numberOfExclamationPoints.value = 0
+                // message.value = 'Hi!'
+            }
+            
+            const messageWithExclamationPoints = computed( function() {
+                let computedMessage = message.value
+                // add ! based on numberOfExclamationPoints
+                for (let x = 0; x < numberOfExclamationPoints.value; x++) {
+                    computedMessage = computedMessage + '!'
+                }
+                return computedMessage
+            })
+
+            return {
+                message,
+                numberOfExclamationPoints,
+                messageWithExclamationPoints,
+                addExclamationPoints,
+                clearExclamationPoints
+            }
+        }
+    }).mount('#app') // this needs to match the id at the top to create the app
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+<body>
+
+<div id="app">
+        
+<label>Please enter your name:</label>
+  <input v-model="name">
+
+  <p v-if="name">Thanks, your name is {{ name }}</p> <!-- this pops up in the box only if something is being typed-->
+  <!-- adding logic to this since it looks basic-->
+  <p v-else>Awaiting user input</p> <!-- or could put i instead of p for italic-->
+
+  <!-- <p v-if="name">
+    Your name is {{ name }}
+  </p> -->
+  <!-- This works also -->
+
+  <button v-on:click="clearName">Clear Name</button>
+
+
+</div>
+
+<script>
+
+    const { createApp, ref } = Vue 
+
+    createApp({
+        setup() {
+
+            const name = ref('') // empty string
+
+            function clearName() {
+                name.value = ''
+            }
+
+            return {
+                name, 
+                clearName
+
+            
+            }
+        }
+    }).mount('#app')
+</script>
+
+</body>
+</html>
